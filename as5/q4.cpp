@@ -1,4 +1,4 @@
-// middle_of_list.cpp
+// reverse_list.cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,14 +16,23 @@ void insertEnd(Node*& head, int x) {
     p->next = t;
 }
 
-int findMiddle(Node* head) {
-    Node* slow = head;
-    Node* fast = head;
-    while (fast && fast->next) {
-        slow = slow->next;
-        fast = fast->next->next;
+Node* reverseList(Node* head) {
+    Node *prev = NULL, *curr = head, *next;
+    while (curr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
     }
-    return slow->data;
+    return prev;
+}
+
+void printList(Node* head) {
+    while (head) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << "\n";
 }
 
 int main() {
@@ -33,5 +42,6 @@ int main() {
         int x; cin >> x;
         insertEnd(head, x);
     }
-    cout << findMiddle(head);
+    head = reverseList(head);
+    printList(head);
 }
